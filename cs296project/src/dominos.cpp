@@ -130,7 +130,7 @@
 
             
              bd->position.Set(0,25);
-             fd1->density =  0.1;
+             fd1->density =  7.;
              fd1->filter.groupIndex = -1;
 
             /*! Variable -  box1
@@ -508,7 +508,7 @@
              prismaticJointDef->localAxisA.Set(0,1);
             prismaticJointDef->localAnchorB.Set( 0.5,6);//a little outside the bottom right corner
             prismaticJointDef->localAnchorA.Set(-7,-5);//bottom left corner
-  		      prismaticJointDef->enableMotor = false;//5 units per second in positive axis direction
+  	   prismaticJointDef->enableMotor = true;//5 units per second in positive axis direction
             prismaticJointDef->maxMotorForce = 100000.;
             prismaticJointDef->motorSpeed = 5.;
             prismaticJointDef->enableLimit = true;
@@ -589,7 +589,7 @@
             //The bar3
              bd->position.Set(6,32);
              bd->fixedRotation = false;
-             fd1->density = 1.0;
+             fd1->density = 5.0;
              fd1->filter.groupIndex = -1;
             /*! Variable -  box3
              \n \brief safety latch1
@@ -860,14 +860,18 @@ void dominos_t::keyboard(unsigned char key)
 
 
 else if(key == 'a'){    
-
+           while(doorRect1->GetWorldCenter().x!=1)
+           {}
   circleToWorldJoint->SetMotorSpeed(0);
   if((box1->GetWorldCenter()).y < 25) box1->SetType(b2_dynamicBody);
   prismaticJoint->SetMotorSpeed(-5);
-  prismaticJoint->EnableMotor(false);
+  prismaticJoint->EnableMotor(true);
 }
 
 else if(key == 'l'){    
+	
+	
+	
   circleToWorldJoint->SetMotorSpeed(1);
     if((box1->GetWorldCenter()).y >= 25){
       box1->SetType(b2_staticBody);  
@@ -882,6 +886,9 @@ else if(key == 'l'){
   if(tempJoint!=0) {
     m_world->DestroyJoint(tempJoint);
   }
+  
+  
+  
 }
 
 else if(key == 'c'){
